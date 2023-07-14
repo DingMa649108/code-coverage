@@ -3,7 +3,7 @@ name: Upload report
 on:
   push:
     branches: master
-  pull_request:
+  pull_request_target:
 
 jobs:
   build:
@@ -25,14 +25,14 @@ jobs:
         name: jacoco.xml
         path: ${{ github.workspace }}/initial/target/jacoco-report/jacoco.xml
 
-#     - name: Add coverage to PR
-#       id: jacoco
-#       uses: madrapps/jacoco-report@v1.3
-#       with:
-#         paths: ${{ github.workspace }}/initial/target/jacoco-report/jacoco.xml
-#         token: ${{ secrets.GITHUB_TOKEN }}
-#         min-coverage-overall: 40
-#         min-coverage-changed-files: 60
+    - name: Add coverage to PR
+      id: jacoco
+      uses: madrapps/jacoco-report@v1.3
+      with:
+        paths: ${{ github.workspace }}/initial/target/jacoco-report/jacoco.xml
+        token: ${{ secrets.GITHUB_TOKEN }}
+        min-coverage-overall: 40
+        min-coverage-changed-files: 60
         
     - name: Get the Coverage info
       run: |
