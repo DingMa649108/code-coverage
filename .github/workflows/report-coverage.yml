@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: Upload report
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
     - name: Upload Report
       uses: 'actions/upload-artifact@v2'
       with:
-        name: report.xml
+        name: jacoco.xml
         path: ${{ github.workspace }}/initial/target/jacoco-report/jacoco.xml
 
 #     - name: Add coverage to PR
@@ -40,14 +40,14 @@ jobs:
         echo "Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
         
         
-    - uses: actions/github-script@v6
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: 'Total coverage  \n Changed Files coverage '
-          })
+#     - uses: actions/github-script@v6
+#       with:
+#         token: ${{ secrets.GITHUB_TOKEN }}
+#         script: |
+#           github.rest.issues.createComment({
+#             issue_number: context.issue.number,
+#             owner: context.repo.owner,
+#             repo: context.repo.repo,
+#             body: 'Total coverage  \n Changed Files coverage '
+#           })
   
