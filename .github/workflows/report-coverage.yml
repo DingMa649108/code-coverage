@@ -25,17 +25,28 @@ jobs:
         name: report.xml
         path: ${{ github.workspace }}/initial/target/jacoco-report/jacoco.xml
 
-    - name: Add coverage to PR
-      id: jacoco
-      uses: madrapps/jacoco-report@v1.3
-      with:
-        paths: ${{ github.workspace }}/initial/target/jacoco-report/jacoco.xml
-        token: ${{ secrets.GITHUB_TOKEN }}
-        min-coverage-overall: 40
-        min-coverage-changed-files: 60
+#     - name: Add coverage to PR
+#       id: jacoco
+#       uses: madrapps/jacoco-report@v1.3
+#       with:
+#         paths: ${{ github.workspace }}/initial/target/jacoco-report/jacoco.xml
+#         token: ${{ secrets.GITHUB_TOKEN }}
+#         min-coverage-overall: 40
+#         min-coverage-changed-files: 60
         
     - name: Get the Coverage info
       run: |
         echo "Total coverage ${{ steps.jacoco.outputs.coverage-overall }}"
         echo "Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
+        
+        
+    - uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: 'Total coverage ${{ steps.jacoco.outputs.coverage-overall }} \n Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}'
+          })
   
