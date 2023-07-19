@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
 
-    -name: Get the Coverage info
-     run: |
+    steps: 
+      -name: Get the Coverage info
+       run: |
         echo "Total coverage ${{ steps.jacoco.outputs.coverage-overall }}"
         echo "Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
