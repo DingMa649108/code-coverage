@@ -28,7 +28,8 @@ jobs:
         mvn jacoco:report
       
     - name: Run Coverage
-      run: mvn clean test
+      run: |
+        mvn clean test
       
     - name: Upload Report
       uses: 'actions/upload-artifact@v2'
