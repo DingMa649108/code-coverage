@@ -26,9 +26,6 @@ jobs:
         cd initial
         mvn clean package
         mvn jacoco:report
-      
-    - name: Run Coverage
-      run: |
         mvn clean test
       
     - name: Upload Report
